@@ -9,16 +9,16 @@
 
 #include <iterator>
 #include <vector>
-#include "IRremote.h"
+#include <IRremote.h>
 
 class Subprograma
 {
   public:
     Subprograma(int);
     int getId();
-    virtual void iniciar(void);
-    virtual void actualizar(void);
-    virtual void terminar(void);
+    virtual void iniciar(void){};
+    virtual void actualizar(void){};
+    virtual void terminar(void){};
 
   private:
     int id;
@@ -29,11 +29,11 @@ class MultiplesProgramas
   public:
     MultiplesProgramas(int);
     void agregar(Subprograma*);
-	void iniciar();
-	void actualizar();
+    void iniciar();
+    void actualizar();
 
   private:
-	std::vector<Subprograma> subprogramas;
+	std::vector<Subprograma*> subprogramas;
 	Subprograma* subProgramaActual;
 	IRrecv *irReceiver;
 	void cambiarProgramaSiNecesario();

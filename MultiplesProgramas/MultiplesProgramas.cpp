@@ -9,12 +9,9 @@
 
 Subprograma::Subprograma(int idPrograma){
 	id = idPrograma;
-	virtual void iniciar(void){};
-	virtual void actualizar(void) = 0;
-	virtual void terminar(void){};
 }
 
-int Subprograma::id(){
+int Subprograma::getId(){
 	return id;
 }
 
@@ -23,11 +20,11 @@ MultiplesProgramas::MultiplesProgramas(int pinIRReceiver){
 }
 
 void MultiplesProgramas::agregar(Subprograma *sp){
-	subprogramas.push_back(*sp);
+	subprogramas.push_back(sp);
 	subProgramaActual = sp;
 }
 
-void MultiplesProgramas::iniciar(){
+void MultiplesProgramas::iniciar(){ 
 	subProgramaActual->iniciar();
 }
 
@@ -45,12 +42,16 @@ void MultiplesProgramas::cambiarProgramaSiNecesario(){
 	}
 }
 
+int elCode;
+bool hasTheCode(Subprograma *sp){
+  return sp->getId() == elCode;
+}
 bool MultiplesProgramas::esPrograma(int code){
-	return std::any_of(subprogramas.begin(),subprogramas.end(),
-		[](Subprograma sp){return sp.id == code;})
+  elCode = code;
+  return std::count_if(subprogramas.begin(),subprogramas.end(), hasTheCode) > 0;
 }
 
 Subprograma* MultiplesProgramas::subProgramaConId(int code){
-	return std::find_if(subprogramas.begin(),subprogramas.end(),
-		[](Subprograma sp){return sp.id == code;})
+    elCode = code;
+    return * std::find_if(subprogramas.begin(),subprogramas.end(),hasTheCode);
 }
