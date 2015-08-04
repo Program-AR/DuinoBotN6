@@ -7,38 +7,18 @@
 #ifndef MultiplesProgramas_h
 #define MultiplesProgramas_h
 
-#include <iterator>
-#include <vector>
-#include <IRremote.h>
-
-class Subprograma
-{
-  public:
-    Subprograma(int);
-    int getId();
-    virtual void iniciar(void){};
-    virtual void actualizar(void){};
-    virtual void terminar(void){};
-
-  private:
+typedef struct {
     int id;
-};
+    static void (* const initiate)(void);
+    static void (* const update)(void);
+    static void (* const finalize)(void);
+} Subprogram;
 
-class MultiplesProgramas
-{
-  public:
-    MultiplesProgramas(int);
-    void agregar(Subprograma*);
-    void iniciar();
-    void actualizar();
+IRrecv irReceiver(A3); //El sensor de infrarrojo esta en el pin 3
 
-  private:
-	std::vector<Subprograma*> subprogramas;
-	Subprograma* subProgramaActual;
-	IRrecv *irReceiver;
-	void cambiarProgramaSiNecesario();
-	bool esPrograma(int);
-	Subprograma* subProgramaConId(int);
-};
+void addSubprogram(Subprogram*);
+void initiateCurrent(void);
+void updateCurrent(void);
+
 #endif
 

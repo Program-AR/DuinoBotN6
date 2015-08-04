@@ -1,23 +1,5 @@
-/*
-  MultiplesProgramas.h - Multiples Programas es una libreria
-  cuyo objetivo es cargar varios programas en un RobotGroup N6
-  para ser elegidos con el control remoto.
-*/
-
 #include "MultiplesProgramas.h"
-#include <algorithm>
-
-Subprograma::Subprograma(int idPrograma){
-	id = idPrograma;
-}
-
-int Subprograma::getId(){
-	return id;
-}
-
-MultiplesProgramas::MultiplesProgramas(int pinIRReceiver){
-	 irReceiver = new IRrecv(pinIRReceiver);
-}
+#include <IRremote.h>
 
 void MultiplesProgramas::agregar(Subprograma *sp){
 	subprogramas.push_back(sp);
