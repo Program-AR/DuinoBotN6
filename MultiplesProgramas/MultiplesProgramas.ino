@@ -1,11 +1,9 @@
-#include "MultiplesProgramas.h"
-#include "SPSeguidor.h"
-#include "SPRemotoRobot.h"
+#include "MultiplePrograms.h"
 
 void setup(){
-	addSubprogram(seguidor,0);
-	addSubprogram(remoteRobot,1);
-    initiateSubprogram(0);
+    addSubprogram(follower(),1);
+    addSubprogram(remoteRobot(),2);
+    startPrograms();
 }
 void loop(){
 	updateCurrent();

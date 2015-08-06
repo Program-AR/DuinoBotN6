@@ -4,12 +4,11 @@
 */
 
 // ensure this library description is only included once
-#ifndef SPSeguidor_h
-#define SPSeguidor_h
+#ifndef SPRemotoRobot_h
+#define SPRemotoRobot_h
 
-#include "MultiplesProgramas.h"
+#include "MultiplePrograms.h"
 
-Subprogram follower;
+Subprogram* remoteRobot(void);
 
 #endif
-
