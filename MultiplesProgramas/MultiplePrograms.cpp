@@ -4,6 +4,7 @@
 #define NOTE_A3  220
 
 IRrecv irReceiver(A3); //El sensor de infrarrojo esta en el pin 3
+float motorSpeed = 50.0;
 
 Subprogram *currentSubprogram;
 Subprogram *subprograms[MAXPROGRAMS];
@@ -40,6 +41,12 @@ void readIRAndChangeProgram(){
 		currentSubprogram->finalize();
 		initiateSubprogram(code);
 	}
+	if (code == 8){
+		motorSpeed -= 10.0;
+	}
+	if (code == 9){
+		motorSpeed += 10.0;
+	}
 }
 
 void updateCurrent(){
@@ -51,7 +58,6 @@ void updateCurrent(){
 DCMotor rightMotor(M0_EN, M0_D0, M0_D1);
 DCMotor leftMotor(M1_EN, M1_D0, M1_D1);
 float lightThreshold = 600;
-float motorSpeed = 50.0;
 float rightSensor;
 float leftSensor;
 Subprogram followR;
