@@ -8,21 +8,8 @@
 #define SPSeguidor_h
 
 #include "MultiplesProgramas.h"
-#include <DCMotor.h>
 
-class SPSeguidor : public Subprograma::Subprograma{
-  public:
-    SPSeguidor(int);
-    void iniciar(void);
-    void actualizar(void);
-
-  private:
-	float sensorIzq, sensorDer;
-	DCMotor* motorIzq;
-	DCMotor* motorDer;
-	int umbralLuz;
-	int velocMotor;
-};
+Subprogram follower;
 
 #endif
 

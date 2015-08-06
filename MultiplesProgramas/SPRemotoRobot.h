@@ -9,6 +9,6 @@
 
 #include "MultiplesProgramas.h"
 
-Subprogram seguidor;
+Subprogram remoteRobot;
 
 #endif

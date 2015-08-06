@@ -1,45 +1,39 @@
 #include "SPSeguidor.h"
 
-SPSeguidor::SPSeguidor(int id) : Subprograma::Subprograma(id){
-  motorIzq = new DCMotor(M0_EN, M0_D0, M0_D1);
-  motorDer = new DCMotor(M1_EN, M1_D0, M1_D1);
-  umbralLuz = 600;
-  velocMotor = 50.0;
-};
- 
-void SPSeguidor::iniciar(){
-  // Serial.begin(115200);
-  motorIzq->setSpeed(velocMotor);
-  motorDer->setSpeed(velocMotor);
+//DCMotor rightMotor(M0_EN, M0_D0, M0_D1);
+//DCMotor leftMotor(M1_EN, M1_D0, M1_D1);
+float lightThreshold = 600;
+//float motorSpeed = 50.0;
+float rightSensor;
+float leftSensor;
+
+void initiateFollower(){
+  rightMotor->setSpeed(motorSpeed);
+  leftMotor->setSpeed(motorSpeed);
 }
 
-void SPSeguidor::actualizar(){
-  //Read sensors:
-  sensorIzq = analogRead(0);
-  sensorDer = analogRead(1);
-  
-  /*
-  //Debug:
-  Serial.print("sensorIzq = ");
-  Serial.print(sensorIzq);
-  Serial.print("/ sensorDer = ");
-  Serial.println(sensorDer);
-  */
+void updateFollower(){
+  rightSensor = analogRead(0);
+  leftSensor = analogRead(1);
 
-  if ( (sensorIzq<umbralLuz) && (sensorDer<umbralLuz) )  //00
+  if ( (rightSensor<lightThreshold) && (leftSensor<lightThreshold) )  //00
   {
-    motorIzq->setSpeed(velocMotor);
-    motorDer->setSpeed(velocMotor);
+    rightMotor->setSpeed(motorSpeed);
+    leftMotor->setSpeed(motorSpeed);
   }
-  else if ( (sensorIzq<umbralLuz) && (sensorDer>umbralLuz) ) //01
+  else if ( (rightSensor<lightThreshold) && (leftSensor>lightThreshold) ) //01
   {
-    motorIzq->setSpeed(0.1*velocMotor);
-    motorDer->setSpeed(velocMotor);
+    rightMotor->setSpeed(0.1*motorSpeed);
+    leftMotor->setSpeed(motorSpeed);
   }
-  else if( (sensorIzq>umbralLuz) && (sensorDer<umbralLuz) ) //10
+  else if( (rightSensor>lightThreshold) && (leftSensor<lightThreshold) ) //10
   {
-    motorIzq->setSpeed(velocMotor);
-    motorDer->setSpeed(0.1*velocMotor);
+    rightMotor->setSpeed(motorSpeed);
+    leftMotor->setSpeed(0.1*motorSpeed);
   }
   //11: Keeps last state.
 }
+
+follower.initiate = initiateFollower;
+follower.update = updateFollower;
+follower.finalize = initiateFollower;
