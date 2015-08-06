@@ -1,39 +1,31 @@
 #include "MultiplesProgramas.h"
 #include <IRremote.h>
 
-void MultiplesProgramas::agregar(Subprograma *sp){
-	subprogramas.push_back(sp);
-	subProgramaActual = sp;
+Subprogram *currentSubprogram;
+Subprogram *subprograms[MAXPROGRAMS];
+
+void addProgram(Subprogram *sp, int pos){
+        subprograms[pos] = sp;
 }
 
-void MultiplesProgramas::iniciar(){ 
-	subProgramaActual->iniciar();
+void initiateSubprogram(int code){ 
+        currentSubprogram = subprograms[code];
+        currentSubprogram->initiate();
 }
 
-void MultiplesProgramas::actualizar(){
-	cambiarProgramaSiNecesario();
-	subProgramaActual->actualizar();
+void updateCurrent(){
+	readIRAndChangeProgram();
+	currentSubprogram->update();
 }
 
-void MultiplesProgramas::cambiarProgramaSiNecesario(){
-	int code = irReceiver->getIRRemoteCode();
-	if (esPrograma(code)) {
-		subProgramaActual->terminar();
-		subProgramaActual = subProgramaConId(code);
-		subProgramaActual->iniciar();
+void readIRAndChangeProgram(){
+	int code = irReceiver.getIRRemoteCode();
+	if (isProgram(code)) {
+		currentSubprogram->finalize();
+		initiateSubprogram(code);
 	}
 }
 
-int elCode;
-bool hasTheCode(Subprograma *sp){
-  return sp->getId() == elCode;
-}
-bool MultiplesProgramas::esPrograma(int code){
-  elCode = code;
-  return std::count_if(subprogramas.begin(),subprogramas.end(), hasTheCode) > 0;
-}
-
-Subprograma* MultiplesProgramas::subProgramaConId(int code){
-    elCode = code;
-    return * std::find_if(subprogramas.begin(),subprogramas.end(),hasTheCode);
+bool isProgram(int code){
+  return code >= 0 && code < MAXPROGRAMS;
 }

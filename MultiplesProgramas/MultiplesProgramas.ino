@@ -4,12 +4,10 @@
 #include "SPSeguidor.h"
 #include "SPRemotoRobot.h"
 
-
-
 void setup(){
-	addSubprogram(seguidor,1);
-	addSubprogram(remotoRobot,2);
-        initiateCurrent();
+	addSubprogram(seguidor,0);
+	addSubprogram(remotoRobot,1);
+        initiateSubprogram(0);
 }
 void loop(){
 	updateCurrent();

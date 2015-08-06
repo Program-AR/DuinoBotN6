@@ -7,12 +7,14 @@
 #ifndef MultiplesProgramas_h
 #define MultiplesProgramas_h
 
+#define MAXPROGRAMS 5 // Should never be more than 10
+
 typedef struct {
-    int id;
     static void (* const initiate)(void);
     static void (* const update)(void);
     static void (* const finalize)(void);
 } Subprogram;
+
 
 IRrecv irReceiver(A3); //El sensor de infrarrojo esta en el pin 3
 
