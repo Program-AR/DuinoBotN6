@@ -18,7 +18,7 @@ void startPrograms(){
     initiateSubprogram(1);
 }
 
-void initiateSubprogram(int code){ 
+void initiateSubprogram(int code){
         currentSubprogram = subprograms[code];
         currentSubprogram->initiate();
 }
@@ -106,27 +106,27 @@ void motorsTo0(){
 
 void updateRemoteControl(){
    int code = irReceiver.getIRRemoteCode();
-   if (code == 820)
+   if (code == 820) // Go ahead. (Arrow up)
    {
       rightMotor.setSpeed(motorSpeed);
       leftMotor.setSpeed(motorSpeed);
    }
-   else if (code == 821)
+   else if (code == 821) // Go back (Arrow Down)
    {
       rightMotor.setSpeed(-motorSpeed);
       leftMotor.setSpeed(-motorSpeed);
    }
-   else if (code == 810)
+   else if (code == 810) //Go right (Arrow right)
    {
       rightMotor.setSpeed(-motorSpeed);
       leftMotor.setSpeed(motorSpeed);
    }
-   else if (code == 811)
+   else if (code == 811) //Go left (Arrow left)
    {
       rightMotor.setSpeed(motorSpeed);
       leftMotor.setSpeed(-motorSpeed);
    }
-   else if (code == 1000)
+   else if (code == 1000) //Stop 
    {
       rightMotor.setSpeed(0);
       leftMotor.setSpeed(0);
@@ -139,5 +139,3 @@ Subprogram * remoteRobot(){
   remotoR.finalize = &motorsTo0;
   return &remotoR;
 }
-
-
